@@ -1,4 +1,4 @@
-#include "FlexibleArrayMemberImp.h"
+#include "flexible_array_member.h"
 
 #include <stddef.h>
 #include <stdio.h>

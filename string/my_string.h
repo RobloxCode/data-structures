@@ -1,5 +1,5 @@
-#ifndef STRINGIMP_H
-#define STRINGIMP_H
+#ifndef MY_STRING_H
+#define MY_STRING_H
 #include <stdlib.h>
 
 typedef enum {

@@ -1,5 +1,5 @@
-#ifndef QUEUEIMP_H
-#define QUEUEIMP_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include <stddef.h>
 

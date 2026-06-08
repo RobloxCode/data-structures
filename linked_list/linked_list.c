@@ -1,4 +1,4 @@
-#include "LinkedList_imp.h"
+#include "linked_list.h"
 
 #include <stddef.h>
 #include <stdio.h>

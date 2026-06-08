@@ -1,5 +1,5 @@
-#ifndef BITARRAYIMP_H
-#define BITARRAYIMP_H
+#ifndef BIT_ARRAY_H
+#define BIT_ARRAY_H
 
 struct u8_BitArr {
     unsigned int items : 8;

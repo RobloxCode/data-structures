@@ -1,4 +1,4 @@
-#include "Slice.h"
+#include "slice.h"
 
 #include <stddef.h>
 #include <stdio.h>

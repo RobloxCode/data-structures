@@ -1,5 +1,5 @@
-#ifndef STRING_H
-#define STRING_H
+#ifndef MY_STRING_H
+#define MY_STRING_H
 #include <stddef.h>
 
 typedef struct {

@@ -1,5 +1,5 @@
-#ifndef FLEXIBLEARRAYMEMBER
-#define FLEXIBLEARRAYMEMBER
+#ifndef FLEXIBLE_ARRAY_MEMBER_H
+#define FLEXIBLE_ARRAY_MEMBER_H
 #include <stddef.h>
 
 typedef enum {

@@ -1,5 +1,5 @@
-#ifndef ARRAYLISTIMP_H
-#define ARRAYLISTIMP_H
+#ifndef ARRAY_LIST_H
+#define ARRAY_LIST_H
 #include <stddef.h>
 
 typedef enum {

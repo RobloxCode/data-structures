@@ -1,5 +1,5 @@
-#ifndef LINKEDLIST_IMP_H
-#define LINKEDLIST_IMP_H
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 #include <stddef.h>
 
 typedef struct Node {

@@ -1,4 +1,4 @@
-#include "ArrayListImp.h"
+#include "array_list.h"
 
 #include <limits.h>
 #include <stddef.h>
