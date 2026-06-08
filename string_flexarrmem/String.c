@@ -1,0 +1,247 @@
+#include "String.h"
+
+#include <limits.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+String *string_init(const size_t cap) {
+    if (cap == 0) {
+        return NULL;
+    }
+
+    String *str = malloc(sizeof *str + cap + 1);
+    if (!str) {
+        return NULL;
+    }
+
+    str->cap = cap;
+    str->len = 0;
+    str->items[0] = '\0';
+
+    return str;
+}
+
+void string_deinit(String **str) {
+    if (!str || !*str) {
+        return;
+    }
+
+    free(*str);
+    *str = NULL;
+}
+
+void string_println(const String *str) {
+    if (!str) {
+        return;
+    }
+
+    puts(str->items);
+}
+
+int string_append_char(String **str, const char c) {
+    if (!str || !*str) {
+        return 1;
+    }
+
+    if ((*str)->len + 2 > (*str)->cap) {
+        size_t new_cap = (*str)->cap * 2;
+
+        String *tmp = realloc(*str, sizeof *tmp + new_cap + 1);
+        if (!tmp) {
+            return 1;
+        }
+
+        tmp->cap = new_cap;
+        *str = tmp;
+    }
+
+    (*str)->items[(*str)->len++] = c;
+    (*str)->items[(*str)->len] = '\0';
+
+    return 0;
+}
+
+int string_append(String **str, const char *cstr) {
+    if (!str || !*str || !cstr) {
+        return 1;
+    }
+
+    size_t cstr_len = 0;
+    while (cstr[cstr_len]) {
+        cstr_len++;
+    }
+
+    if ((*str)->cap < ((*str)->len + cstr_len + 1)) {
+        size_t new_cap = ((*str)->len + cstr_len) * 2;
+        String *tmp = realloc(*str, sizeof *tmp + new_cap + 1);
+        if (!tmp) {
+            return 1;
+        }
+
+        tmp->cap = new_cap;
+        *str = tmp;
+    }
+
+    for (size_t i = 0; i < cstr_len; ++i) {
+        (*str)->items[i + (*str)->len] = cstr[i];
+    }
+
+    (*str)->len += cstr_len;
+    (*str)->items[(*str)->len] = '\0';
+
+    return 0;
+}
+
+const char *string_to_cstr(const String *str) {
+    if (!str) {
+        return NULL;
+    }
+
+    return str->items;
+}
+
+size_t string_len(const String *str) {
+    if (!str) {
+        return 0;
+    }
+
+    return str->len;
+}
+
+int string_cmp(const String *str1, const String *str2) {
+    if (!str1 || !str2) {
+        return 1;
+    }
+
+    if (str1->len != str2->len) {
+        return 1;
+    }
+
+    for (size_t i = 0; i < str1->len; ++i) {
+        if (str1->items[i] != str2->items[i]) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+void string_clear(String *str) {
+    if (!str) {
+        return;
+    }
+
+    str->items[0] = '\0';
+    str->len = 0;
+}
+
+int string_copy(String *dst, const String *src) {
+    if (!dst || !src) {
+        return 1;
+    }
+
+    if (src->len > dst->len) {
+        return 1;
+    }
+
+    string_clear(dst);
+    string_append(&dst, src->items);
+
+    return 0;
+}
+
+int string_concat(String **dst, const String *str1, const String *str2) {
+    if (!dst || !*dst || !str1 || !str2) {
+        return 1;
+    }
+
+    if ((*dst)->cap < str1->len + str2->len) {
+        size_t new_cap = str1->len + str2->len;
+        String *tmp = realloc(*dst, sizeof *tmp + new_cap + 1);
+        if (!tmp) {
+            return 1;
+        }
+
+        tmp->cap = new_cap;
+        *dst = tmp;
+    }
+
+    string_append(dst, str1->items);
+    string_append(dst, str2->items);
+    return 0;
+}
+
+static void _str_reverse(char *str) {
+    size_t left = 0;
+    size_t right = 0;
+
+    while (str[right]) {
+        right++;
+    }
+
+    right--;
+
+    while (left < right) {
+        char tmp = str[left];
+        str[left] = str[right];
+        str[right] = tmp;
+
+        left++;
+        right--;
+    }
+}
+
+static void _int_to_char(int num, char *out) {
+    if (!out) {
+        return;
+    }
+
+    int last_digit = 0;
+    size_t out_idx = 0;
+    while (num > 0) {
+        last_digit = num % 10;
+        out[out_idx++] = (char)(last_digit + '0');
+        num /= 10;
+    }
+
+    _str_reverse(out);
+}
+
+int string_join_int_arr(String *str, const int *arr, const size_t len,
+                        const char *separator) {
+    if (!str || !arr) {
+        return 1;
+    }
+
+    if (len == 0) {
+        return 1;
+    }
+
+#define MAX_DIGIT_LEN 256
+
+    string_clear(str);
+
+    char cur_digit[MAX_DIGIT_LEN] = {0};
+    for (size_t i = 0; i < len; ++i) {
+        _int_to_char(arr[i], cur_digit);
+        string_append(&str, cur_digit);
+        string_append(&str, separator);
+    }
+
+    return 0;
+}
+
+int string_replace(String *str, const char oldchar, char newchar) {
+    if (!str) {
+        return 1;
+    }
+
+    for (size_t i = 0; i < str->len; ++i) {
+        if (str->items[i] == oldchar) {
+            str->items[i] = newchar;
+        }
+    }
+
+    return 0;
+}
