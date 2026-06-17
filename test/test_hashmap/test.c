@@ -14,6 +14,7 @@ int main(void) {
     hash_map_insert(&hm, "crabb", 10);
     hash_map_insert(&hm, "something", 34);
     hash_map_insert(&hm, "abc", 10);
+    hash_map_insert(&hm, "abc", 20);
 
     hash_map_println(&hm);
 

@@ -17,7 +17,8 @@ struct HashMap {
 };
 
 void hash_map_insert(struct HashMap *hm, char *key, int val);
-int hash_map_get(struct HashMap *hm, char *key, int *out);
+int hash_map_update(struct HashMap *hm, const char *key);
+int hash_map_get(struct HashMap *hm, const char *key, int *out);
 void hash_map_println(struct HashMap *hm);
 
 #endif

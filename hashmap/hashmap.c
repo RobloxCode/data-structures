@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static size_t _hash_str(char *s) {
+static size_t _hash_str(const char *s) {
     size_t hash = 0;
 
     for (size_t i = 0; s[i] != '\0'; ++i) {
@@ -14,7 +14,7 @@ static size_t _hash_str(char *s) {
     return hash;
 }
 
-static size_t _get_index(char *s) {
+static size_t _get_index(const char *s) {
     return _hash_str(s) % VALUES_LEN;
 }
 
@@ -26,15 +26,14 @@ static void set_map_item(struct MapItem *mi, char *key, int val, int occupied) {
 
 void hash_map_insert(struct HashMap *hm, char *key, int val) {
     size_t index = _get_index(key);
-    int amount = 1;
 
     if (hm->VALUES[index].occupied) {
-        if (index == VALUES_LEN - 1) {
-            amount = -1;
+        if (strcmp(hm->VALUES[index].key, key) == 0) {
+            return;
         }
 
         while (hm->VALUES[index].occupied) {
-            index += (size_t)amount;
+            index = (index + 1) % VALUES_LEN;
         }
 
         set_map_item(&(hm->VALUES[index]), key, val, 1);
@@ -46,7 +45,10 @@ void hash_map_insert(struct HashMap *hm, char *key, int val) {
     hm->values_count++;
 }
 
-int hash_map_get(struct HashMap *hm, char *key, int *out) {
+int hash_map_update(struct HashMap *hm, const char *key) {
+}
+
+int hash_map_get(struct HashMap *hm, const char *key, int *out) {
     if (!out || !key || !hm) {
         return 1;
     }
