@@ -13,10 +13,11 @@ struct MapItem {
 
 struct HashMap {
     struct MapItem VALUES[VALUES_LEN];
+    size_t values_count;
 };
 
 void hash_map_insert(struct HashMap *hm, char *key, int val);
-int hash_map_get(struct HashMap *hm, char *key);
+int hash_map_get(struct HashMap *hm, char *key, int *out);
 void hash_map_println(struct HashMap *hm);
 
 #endif

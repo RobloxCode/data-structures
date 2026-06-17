@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
 static size_t _hash_str(char *s) {
     size_t hash = 0;
@@ -42,16 +43,33 @@ void hash_map_insert(struct HashMap *hm, char *key, int val) {
     }
 
     set_map_item(&(hm->VALUES[index]), key, val, 1);
+    hm->values_count++;
 }
 
-int hash_map_get(struct HashMap *hm, char *key) {
-    return hm->VALUES[_get_index(key)].val;
+int hash_map_get(struct HashMap *hm, char *key, int *out) {
+    if (!out || !key || !hm) {
+        return 1;
+    }
+
+    size_t index = _get_index(key);
+
+    while (hm->VALUES[index].occupied) {
+        if (strcmp(hm->VALUES[index].key, key) == 0) {
+            *out = hm->VALUES[index].val;
+            return 0;
+        }
+
+        index = (index + 1) % VALUES_LEN;
+    }
+
+    return 1;
 }
 
 void hash_map_println(struct HashMap *hm) {
     for (size_t i = 0; i < VALUES_LEN; ++i) {
         if (hm->VALUES[i].occupied) {
-            printf("%s: %d\n", hm->VALUES[i].key, hm->VALUES[i].val);
+            printf("{%s: %d}\n", hm->VALUES[i].key, hm->VALUES[i].val);
         }
     }
+    printf("\n");
 }
