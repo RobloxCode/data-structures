@@ -9,8 +9,14 @@ struct MapItem {
     int occupied;
 };
 
-void hash_insert(char *key, int val);
-int hash_get(char *key);
-void hash_println();
+#define VALUES_LEN 200
+
+struct HashMap {
+    struct MapItem VALUES[VALUES_LEN];
+};
+
+void hash_map_insert(struct HashMap *hm, char *key, int val);
+int hash_map_get(struct HashMap *hm, char *key);
+void hash_map_println(struct HashMap *hm);
 
 #endif
