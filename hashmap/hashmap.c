@@ -1,7 +1,10 @@
+// #define _POSIX_C_SOURCE 200809L
+
 #include "hashmap.h"
 
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 static size_t _hash_str(const char *s) {
@@ -18,34 +21,85 @@ static size_t _get_index(const char *s) {
     return _hash_str(s) % VALUES_LEN;
 }
 
-static void set_map_item(struct MapItem *mi, char *key, int val, int occupied) {
-    mi->key = key;
-    mi->val = val;
-    mi->occupied = occupied;
+static char *_my_strdup(const char *s) {
+    size_t len = strlen(s) + 1;
+
+    char *copy = malloc(len);
+    if (!copy) {
+        return NULL;
+    }
+
+    memcpy(copy, s, len);
+
+    return copy;
 }
 
-void hash_map_insert(struct HashMap *hm, char *key, int val) {
-    size_t index = _get_index(key);
+static int set_map_item(struct MapItem *mi, const char *key, int val,
+                        int occupied) {
+    char *copy = _my_strdup(key);
 
-    if (hm->VALUES[index].occupied) {
-        if (strcmp(hm->VALUES[index].key, key) == 0) {
+    if (!copy) {
+        return 1;
+    }
+
+    mi->key = copy;
+    mi->val = val;
+    mi->occupied = occupied;
+
+    return 0;
+}
+
+void hash_map_deinit(struct HashMap *hm) {
+    for (size_t i = 0; i < VALUES_LEN; ++i) {
+        if (hm->VALUES[i].occupied) {
+            free(hm->VALUES[i].key);
+        }
+    }
+}
+
+void hash_map_insert(struct HashMap *hm, const char *key, int val) {
+    size_t i = _get_index(key);
+
+    if (hm->VALUES[i].occupied) {
+        if (strcmp(hm->VALUES[i].key, key) == 0) {
             return;
         }
 
-        while (hm->VALUES[index].occupied) {
-            index = (index + 1) % VALUES_LEN;
+        while (hm->VALUES[i].occupied) {
+            i = (i + 1) % VALUES_LEN;
         }
 
-        set_map_item(&(hm->VALUES[index]), key, val, 1);
+        if (set_map_item(&(hm->VALUES[i]), key, val, 1) != 0) {
+            fprintf(stderr, "Error while assigning key\n");
+            return;
+        }
+
+        hm->values_count++;
 
         return;
     }
 
-    set_map_item(&(hm->VALUES[index]), key, val, 1);
+    if (set_map_item(&(hm->VALUES[i]), key, val, 1) != 0) {
+        fprintf(stderr, "Error while assigning key\n");
+        return;
+    }
+
     hm->values_count++;
 }
 
-int hash_map_update(struct HashMap *hm, const char *key) {
+int hash_map_update(struct HashMap *hm, const char *key, int val) {
+    size_t i = _get_index(key);
+
+    while (hm->VALUES[i].occupied) {
+        if (strcmp(hm->VALUES[i].key, key) == 0) {
+            hm->VALUES[i].val = val;
+            return 0;
+        }
+
+        i = (i + 1) % VALUES_LEN;
+    }
+
+    return 1;
 }
 
 int hash_map_get(struct HashMap *hm, const char *key, int *out) {
@@ -53,15 +107,15 @@ int hash_map_get(struct HashMap *hm, const char *key, int *out) {
         return 1;
     }
 
-    size_t index = _get_index(key);
+    size_t i = _get_index(key);
 
-    while (hm->VALUES[index].occupied) {
-        if (strcmp(hm->VALUES[index].key, key) == 0) {
-            *out = hm->VALUES[index].val;
+    while (hm->VALUES[i].occupied) {
+        if (strcmp(hm->VALUES[i].key, key) == 0) {
+            *out = hm->VALUES[i].val;
             return 0;
         }
 
-        index = (index + 1) % VALUES_LEN;
+        i = (i + 1) % VALUES_LEN;
     }
 
     return 1;

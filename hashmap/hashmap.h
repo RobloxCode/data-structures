@@ -16,8 +16,9 @@ struct HashMap {
     size_t values_count;
 };
 
-void hash_map_insert(struct HashMap *hm, char *key, int val);
-int hash_map_update(struct HashMap *hm, const char *key);
+void hash_map_insert(struct HashMap *hm, const char *key, int val);
+void hash_map_deinit(struct HashMap *hm);
+int hash_map_update(struct HashMap *hm, const char *key, int val);
 int hash_map_get(struct HashMap *hm, const char *key, int *out);
 void hash_map_println(struct HashMap *hm);
 
