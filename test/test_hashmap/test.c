@@ -12,12 +12,13 @@ int main(void) {
     hash_map_insert(&hm, "crabb", 10);
     hash_map_insert(&hm, "something", 34);
     hash_map_insert(&hm, "abc", 10);
-    hash_map_insert(&hm, "xyz", 20);
 
     hash_map_println(&hm);
 
     printf("get with key: %s, val: %d\n", "pou", hash_map_get(&hm, "pou"));
-    printf("get with key: %s, val: %d\n", "pou", hash_map_get(&hm, "tpouueh"));
+    printf("get with key: %s, val: %d\n", "tpouueh",
+           hash_map_get(&hm, "tpouueh"));
+    printf("get with key: %s, val: %d\n", "abc", hash_map_get(&hm, "abc"));
 
     return 0;
 }
