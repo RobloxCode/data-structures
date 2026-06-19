@@ -293,75 +293,75 @@ BST_status bst_get_min(const BST *bst, int *out) {
     return BST_OK;
 }
 
-static void pro_replace_child(BST *bst, BSTNode *parent, BSTNode *old,
-                              BSTNode *new_child) {
-    if (parent) {
-        if (parent->left_child == old) {
-            parent->left_child = new_child;
-        } else {
-            parent->right_child = new_child;
-        }
-    } else {
-        bst->root = new_child;
-    }
-}
+// static void pro_replace_child(BST *bst, BSTNode *parent, BSTNode *old,
+//                               BSTNode *new_child) {
+//     if (parent) {
+//         if (parent->left_child == old) {
+//             parent->left_child = new_child;
+//         } else {
+//             parent->right_child = new_child;
+//         }
+//     } else {
+//         bst->root = new_child;
+//     }
+// }
 
-static BST_status pro_BST_remove(BST *bst, int val) {
-    if (!bst) {
-        return BST_ERR_WRONG_PTR;
-    }
-
-    if (!bst->root) {
-        return BST_ERR_EMPTY_TREE;
-    }
-
-    BSTNode *to_del = NULL;
-    BSTNode *parent = NULL;
-
-    BST_status status = _init_del_ptrs(bst, val, &to_del, &parent);
-    if (status != BST_OK) {
-        return status;
-    }
-
-    if (!to_del->left_child && !to_del->right_child) {
-        pro_replace_child(bst, parent, to_del, NULL);
-        free(to_del);
-    }
-
-    else if (!to_del->left_child) {
-        pro_replace_child(bst, parent, to_del, to_del->right_child);
-        free(to_del);
-    }
-
-    else if (!to_del->right_child) {
-        pro_replace_child(bst, parent, to_del, to_del->left_child);
-        free(to_del);
-    }
-
-    else {
-        BSTNode *pred_parent = to_del;
-        BSTNode *pred = to_del->left_child;
-
-        while (pred->right_child) {
-            pred_parent = pred;
-            pred = pred->right_child;
-        }
-
-        to_del->val = pred->val;
-
-        BSTNode *child = pred->left_child;
-
-        if (pred_parent->right_child == pred) {
-            pred_parent->right_child = child;
-        } else {
-            pred_parent->left_child = child;
-        }
-
-        free(pred);
-    }
-
-    return BST_OK;
-}
+// static BST_status pro_BST_remove(BST *bst, int val) {
+//     if (!bst) {
+//         return BST_ERR_WRONG_PTR;
+//     }
+//
+//     if (!bst->root) {
+//         return BST_ERR_EMPTY_TREE;
+//     }
+//
+//     BSTNode *to_del = NULL;
+//     BSTNode *parent = NULL;
+//
+//     BST_status status = _init_del_ptrs(bst, val, &to_del, &parent);
+//     if (status != BST_OK) {
+//         return status;
+//     }
+//
+//     if (!to_del->left_child && !to_del->right_child) {
+//         pro_replace_child(bst, parent, to_del, NULL);
+//         free(to_del);
+//     }
+//
+//     else if (!to_del->left_child) {
+//         pro_replace_child(bst, parent, to_del, to_del->right_child);
+//         free(to_del);
+//     }
+//
+//     else if (!to_del->right_child) {
+//         pro_replace_child(bst, parent, to_del, to_del->left_child);
+//         free(to_del);
+//     }
+//
+//     else {
+//         BSTNode *pred_parent = to_del;
+//         BSTNode *pred = to_del->left_child;
+//
+//         while (pred->right_child) {
+//             pred_parent = pred;
+//             pred = pred->right_child;
+//         }
+//
+//         to_del->val = pred->val;
+//
+//         BSTNode *child = pred->left_child;
+//
+//         if (pred_parent->right_child == pred) {
+//             pred_parent->right_child = child;
+//         } else {
+//             pred_parent->left_child = child;
+//         }
+//
+//         free(pred);
+//     }
+//
+//     return BST_OK;
+// }
 
 static BSTNode *_remove_rec(BSTNode *node, int val, BST_status *status) {
     if (!node) {
