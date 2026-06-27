@@ -8,6 +8,7 @@ int fail = 0;
 
 void test_get(struct u8_BitArr *ba, int pos);
 void test_set(struct u8_BitArr *ba, int pos);
+void test_clear(struct u8_BitArr *ba, int pos);
 
 int main(void) {
     unsigned int items = 0b10010010;
@@ -23,6 +24,14 @@ int main(void) {
     test_set(&byte, 0);
     test_set(&byte, 1);
     test_set(&byte, 2);
+    test_set(&byte, 32);
+
+    u8_bit_arr_print(&byte);
+
+    test_clear(&byte, 0);
+    test_clear(&byte, 1);
+    test_clear(&byte, 13);
+    test_clear(&byte, 2);
 
     u8_bit_arr_print(&byte);
 
@@ -50,4 +59,15 @@ void test_set(struct u8_BitArr *ba, int pos) {
     }
 
     printf("you set the position: %d\n", pos);
+}
+
+void test_clear(struct u8_BitArr *ba, int pos) {
+    int status = 0;
+
+    if ((status = u8_bit_arr_clear(ba, pos)) != 0) {
+        fprintf(stderr, "ERROR status: %d\n", status);
+        fail = 1;
+    }
+
+    printf("you cleared the position: %d\n", pos);
 }
