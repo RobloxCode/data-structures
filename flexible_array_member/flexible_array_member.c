@@ -78,7 +78,7 @@ size_t flex_arr_len(const FlexArr *fa) {
         return 0;
     }
 
-    return fa->len - 1;
+    return fa->len;
 }
 
 FA_status flex_arr_println(const FlexArr *fa) {

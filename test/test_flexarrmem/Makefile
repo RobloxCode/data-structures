@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Wconversion -pedantic -g \
          -fsanitize=address -fno-omit-frame-pointer
 
-SRC = test.c ../../string_flexarrmem/my_string.c
+SRC = test.c ../../flexible_array_member/flexible_array_member.c
 OUT = t
 
 $(OUT): $(SRC)
