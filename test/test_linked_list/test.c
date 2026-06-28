@@ -7,6 +7,7 @@ int fail = 0;
 
 void test_append(LinkedList *ll, int val);
 void test_remove(LinkedList *ll, size_t i);
+void test_reverse(LinkedList *ll);
 
 int main(void) {
     LinkedList *ll = ll_init();
@@ -24,6 +25,20 @@ int main(void) {
     ll_println(ll);
 
     test_remove(ll, 10);
+    test_remove(ll, ll_len(ll) - 1);
+    test_remove(ll, 0);
+
+    ll_println(ll);
+
+    test_append(ll, 5);
+    test_append(ll, 6);
+    test_append(ll, 7);
+
+    ll_println(ll);
+
+    test_reverse(ll);
+
+    ll_println(ll);
 
     ll_deinit(&ll);
 
@@ -45,6 +60,16 @@ void test_remove(LinkedList *ll, size_t i) {
 
     if ((status = ll_remove(ll, i)) != LL_OK) {
         fprintf(stderr, "Error removing status: %d\n", status);
+        fail = 1;
+        return;
+    }
+}
+
+void test_reverse(LinkedList *ll) {
+    LL_status status = LL_OK;
+
+    if ((status = ll_reverse(ll)) != LL_OK) {
+        fprintf(stderr, "Error reversing status: %d\n", status);
         fail = 1;
         return;
     }
