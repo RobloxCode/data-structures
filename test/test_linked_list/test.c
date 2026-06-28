@@ -12,7 +12,7 @@ void test_reverse(LinkedList *ll);
 int main(void) {
     LinkedList *ll = ll_init();
     if (!ll) {
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     ll_println(ll);
@@ -40,7 +40,23 @@ int main(void) {
 
     ll_println(ll);
 
-    ll_deinit(&ll);
+    int arr[] = {1, 2, 3, 4, 5, 6, 9};
+
+    LinkedList *ll2 = arr_to_ll(arr, sizeof arr / sizeof arr[0]);
+    if (!ll2) {
+        goto cleanup;
+    }
+
+    ll_println(ll2);
+
+cleanup:
+    if (ll) {
+        ll_deinit(&ll);
+    }
+
+    if (ll2) {
+        ll_deinit(&ll2);
+    }
 
     return fail ? EXIT_FAILURE : EXIT_SUCCESS;
 }
