@@ -149,14 +149,15 @@ AL_status array_list_swap(ArrList *al, const size_t i1, const size_t i2) {
 
 AL_status array_list_get(ArrList *al, const size_t i, int *out) {
     if (!al) {
-        return INT_MAX;
+        return ARRAYLIST_ERR_WRONG_PTR;
     }
 
     if (i >= al->length) {
-        return INT_MAX;
+        return ARRAYLIST_IDX_OUT_OF_RANGE;
     }
 
-    return al->items[i];
+    *out = al->items[i];
+    return ARRAYLIST_OK;
 }
 
 AL_status array_list_remove(ArrList *al, const size_t i) {
