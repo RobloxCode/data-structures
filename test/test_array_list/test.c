@@ -36,8 +36,11 @@ int main(void) {
     test_swap(al, 0, array_list_len(al) - 1);
     test_print(al);
     test_get(al, 4);
+    test_get(al, array_list_len(al) - 1);
+    test_get(al, 19);
 
     array_list_deinit(&al);
+
     return Failure ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
@@ -47,6 +50,7 @@ void test_append(ArrList *al, int val) {
     if (status != ARRAYLIST_OK) {
         fprintf(stderr, "Error while appending\n");
         Failure = 1;
+        return;
     }
 }
 
@@ -57,6 +61,7 @@ void test_remove(ArrList *al, size_t i) {
         fprintf(stderr, "Error while removing item at idx: %zu\nSTATUS: %d\n",
                 i, status);
         Failure = 1;
+        return;
     }
 }
 
@@ -66,6 +71,7 @@ void test_print(ArrList *al) {
     if (status != ARRAYLIST_OK) {
         fprintf(stderr, "Error while printing\n");
         Failure = 1;
+        return;
     }
 }
 
@@ -75,6 +81,7 @@ void test_reverse(ArrList *al) {
     if (status != ARRAYLIST_OK) {
         fprintf(stderr, "Error while reversing\n");
         Failure = 1;
+        return;
     }
 }
 
@@ -89,9 +96,17 @@ void test_swap(ArrList *al, size_t i1, size_t i2) {
     if (status != ARRAYLIST_OK) {
         fprintf(stderr, "Error while swapping %zu with %zu\n", i1, i2);
         Failure = 1;
+        return;
     }
 }
 
 void test_get(ArrList *al, size_t i) {
-    printf("i: %zu, item: %d\n", i, array_list_get(al, i));
+    int out = 0;
+    AL_status status = ARRAYLIST_OK;
+    if ((status = array_list_get(al, i, &out)) != ARRAYLIST_OK) {
+        fprintf(stderr, "Error while getting item %zu\n", i);
+        Failure = 1;
+        return;
+    }
+    printf("the value at i: %zu is : %d\n", i, out);
 }
