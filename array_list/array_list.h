@@ -118,8 +118,8 @@ AL_status array_list_swap(ArrList *al, const size_t i1, const size_t i2);
  *
  * @param al List to query.
  * @param i  Index to access.
- * @return The value at index i. Note: current signature has no way to signal
- *         an out-of-range error to the caller (see note below).
+ * @return ARRAYLIST_OK on success, ARRAYLIST_ERR_WRONG_PTR if al in NULL,
+ *         ARRAYLIST_IDX_OUT_OF_RANGE if i is out of range
  */
 AL_status array_list_get(ArrList *al, const size_t i, int *out);
 
