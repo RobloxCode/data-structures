@@ -147,7 +147,7 @@ AL_status array_list_swap(ArrList *al, const size_t i1, const size_t i2) {
     return ARRAYLIST_OK;
 }
 
-int array_list_get(ArrList *al, const size_t i) {
+AL_status array_list_get(ArrList *al, const size_t i, int *out) {
     if (!al) {
         return INT_MAX;
     }

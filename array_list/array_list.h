@@ -121,6 +121,6 @@ AL_status array_list_swap(ArrList *al, const size_t i1, const size_t i2);
  * @return The value at index i. Note: current signature has no way to signal
  *         an out-of-range error to the caller (see note below).
  */
-int array_list_get(ArrList *al, const size_t i);
+AL_status array_list_get(ArrList *al, const size_t i, int *out);
 
 #endif
