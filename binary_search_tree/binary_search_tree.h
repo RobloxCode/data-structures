@@ -74,6 +74,14 @@ BST_status bst_println_pos(const BST *bst);
  */
 BST_status bst_get_min(const BST *bst, int *out);
 
+/*
+ * removes a value in the tree using recursion
+ * @param bst a pointer to a Bst struct
+ * @param val value to be removed
+ * @return BST_OK on success, BST_ERR_WRONG_PTR on null bst,
+ *         BST_ERR_EMPTY_TREE on null root
+ *
+ */
 BST_status bst_remove_rec(BST *bst, int val);
 
 #endif
