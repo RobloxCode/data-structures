@@ -6,10 +6,10 @@
  * @brief Status codes returned by Array List operations.
  */
 typedef enum {
-    FA_OK,
-    FA_ERR_WRONG_PTR,
-    FA_ERR_RANGE,
-    FA_ERR_REALLOC,
+    FA_OK,            /* Operation completed succesfully. */
+    FA_ERR_WRONG_PTR, /* A NULL or invalid pointer was passed. */
+    FA_ERR_RANGE,     /* Index is greater the length. */
+    FA_ERR_REALLOC,   /* Internal reallocation failed. */
 } FA_status;
 
 /**
