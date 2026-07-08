@@ -27,7 +27,7 @@ int main(void) {
     test_update(&hm, "something", 45);
     test_update(&hm, "non", 45);
 
-    printf("count: %zu\n", hm.values_count);
+    printf("count: %zu\n", hm.count);
 
     hash_map_deinit(&hm);
 
