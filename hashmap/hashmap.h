@@ -8,13 +8,13 @@
  *
  * @var key a string literal that would be the key
  * @var val value to be stored
- * @var occupied Number that represents wether its space in memory
+ * @var occupied Number that represents wheter its space in memory
  *      has already been used (this is used for collisions)
  */
 typedef struct {
     char *key;     /* < heap allocated string */
     int val;       /* < every individual value a*/
-    int _occupied; /* < wether or not a space has been used*/
+    int _occupied; /* < wheter or not a space has been used*/
 } MapItem;
 
 // capacity of the array of elements for the hash map
