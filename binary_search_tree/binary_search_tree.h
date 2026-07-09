@@ -2,24 +2,33 @@
 #define BINARY_SEARCH_TREE_H
 #include <stddef.h>
 
+/**
+ * @brief Status codes returned by BST operations
+ */
 typedef enum {
-    BST_OK = 0,
-    BST_ERR_WRONG_PTR = 1,
-    BST_ERR_INIT_NODE = 2,
-    BST_ERR_REPEATED_VAL = 3,
-    BST_ERR_EMPTY_TREE = 4,
-    BST_ERR_VAL_NOT_FOUND = 5,
+    BST_OK = 0,                /* < success */
+    BST_ERR_WRONG_PTR = 1,     /* < a NULL or invalid pointer has been passed */
+    BST_ERR_INIT_NODE = 2,     /* < malloc error when creating a BSTNode */
+    BST_ERR_REPEATED_VAL = 3,  /* < an element is already on tree */
+    BST_ERR_EMPTY_TREE = 4,    /* < tree doesn't have any elements */
+    BST_ERR_VAL_NOT_FOUND = 5, /* < element is not on the tree */
 } BST_status;
 
+/**
+ * @brief Every Node on a tree
+ */
 typedef struct BSTNode {
-    int val;
-    struct BSTNode *left_child;
-    struct BSTNode *right_child;
+    int val;                     /* < each individual element */
+    struct BSTNode *left_child;  /* < Pointer to the left node */
+    struct BSTNode *right_child; /* < Pointer to the right node */
 } BSTNode;
 
+/**
+ * @brief Binary search tree
+ */
 typedef struct {
-    BSTNode *root;
-    size_t height;
+    BSTNode *root; /* < root node */
+    size_t height; /* < number of the longest path downward */
 } BST;
 
 /**
