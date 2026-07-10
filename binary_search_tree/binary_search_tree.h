@@ -84,6 +84,14 @@ BST_status bst_println_pos(const BST *bst);
 BST_status bst_get_min(const BST *bst, int *out);
 
 /*
+ * stores the maximun value in the tree in the out variable
+ * @param bst a pointer to a BST struct
+ * @param out a poointer to the variable where the maximun
+ *        value will be stored
+ */
+BST_status bst_get_max(const BST *bst, int *out);
+
+/*
  * removes a value in the tree using recursion
  * @param bst a pointer to a Bst struct
  * @param val value to be removed

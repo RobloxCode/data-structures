@@ -283,7 +283,26 @@ BST_status bst_get_min(const BST *bst, int *out) {
         return BST_ERR_EMPTY_TREE;
     }
 
-    BSTNode *cur = bst->root->left_child;
+    BSTNode *cur = bst->root;
+    *out = cur->val;
+    while (cur) {
+        *out = cur->val;
+        cur = cur->left_child;
+    }
+
+    return BST_OK;
+}
+
+BST_status bst_get_max(const BST *bst, int *out) {
+    if (!bst || !out) {
+        return BST_ERR_WRONG_PTR;
+    }
+
+    if (!bst->root) {
+        return BST_ERR_EMPTY_TREE;
+    }
+
+    BSTNode *cur = bst->root;
     *out = cur->val;
     while (cur) {
         *out = cur->val;
@@ -292,7 +311,6 @@ BST_status bst_get_min(const BST *bst, int *out) {
 
     return BST_OK;
 }
-
 // static void pro_replace_child(BST *bst, BSTNode *parent, BSTNode *old,
 //                               BSTNode *new_child) {
 //     if (parent) {
