@@ -6,11 +6,11 @@
 typedef struct {
     int *items;
     size_t len;
-} iSlice;
+} intSlice;
 
-void *i_slice_make(int *src, size_t srclen, size_t start, size_t end);
-void i_slice_deinit(iSlice **s);
-int i_slice_init(iSlice *s, int *src, size_t srclen, size_t start, size_t end);
-void i_slice_println(iSlice *s);
+void *slice_make(int *src, size_t srclen, size_t start, size_t end);
+void slice_deinit(intSlice **s);
+int slice_init(intSlice *s, int *src, size_t srclen, size_t start, size_t end);
+void slice_println(intSlice *s);
 
 #endif

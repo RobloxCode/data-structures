@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define iSlice intSlice
+
 void *i_slice_make(int *src, size_t srclen, size_t start, size_t end) {
     if (start > end || end == start || (end - start) > srclen) {
         return NULL;
