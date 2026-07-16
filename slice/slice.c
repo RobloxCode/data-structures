@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void *i_slice_make(int *src, size_t srclen, size_t start, size_t end) {
+void *slice_make(int *src, size_t srclen, size_t start, size_t end) {
     if (start > end || end == start || (end - start) > srclen) {
         return NULL;
     }
@@ -20,13 +20,12 @@ void *i_slice_make(int *src, size_t srclen, size_t start, size_t end) {
     return s;
 }
 
-void i_slice_deinit(intSlice **s) {
+void slice_deinit(intSlice **s) {
     free(*s);
     *s = NULL;
 }
 
-int i_slice_init(intSlice *s, int *src, size_t srclen, size_t start,
-                 size_t end) {
+int slice_init(intSlice *s, int *src, size_t srclen, size_t start, size_t end) {
     if (start > end || end == start || (end - start) > srclen) {
         return 1;
     }
@@ -37,7 +36,7 @@ int i_slice_init(intSlice *s, int *src, size_t srclen, size_t start,
     return 0;
 }
 
-void i_slice_println(intSlice *s) {
+void slice_println(intSlice *s) {
     for (size_t i = 0; i < s->len; ++i) {
         printf("%d ", s->items[i]);
     }
