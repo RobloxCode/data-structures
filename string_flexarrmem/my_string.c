@@ -157,7 +157,7 @@ int string_concat(String **dst, const String *str1, const String *str2) {
     }
 
     if ((*dst)->cap < str1->len + str2->len) {
-        size_t new_cap = str1->len + str2->len;
+        size_t new_cap = str1->len + str2->len * 2;
         String *tmp = realloc(*dst, sizeof *tmp + new_cap + 1);
         if (!tmp) {
             return 1;
@@ -223,6 +223,7 @@ int string_join_int_arr(String *str, const int *arr, const size_t len,
     string_clear(str);
 
     char cur_digit[MAX_DIGIT_LEN] = {0};
+
     for (size_t i = 0; i < len; ++i) {
         _int_to_char(arr[i], cur_digit);
         string_append(&str, cur_digit);
@@ -232,7 +233,7 @@ int string_join_int_arr(String *str, const int *arr, const size_t len,
     return 0;
 }
 
-int string_replace(String *str, const char oldchar, char newchar) {
+int string_replace_char(String *str, const char oldchar, char newchar) {
     if (!str) {
         return 1;
     }

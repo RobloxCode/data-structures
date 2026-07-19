@@ -21,7 +21,8 @@ typedef struct {
  *
  * @return Pointer to heap allocated intSlice
  */
-void *slice_make(int *src, size_t srclen, size_t start, size_t end);
+void *slice_make(int *const src, const size_t srclen, const size_t start,
+                 const size_t end);
 
 /**
  * @brief Frees from memory a heap allocated intSlice
@@ -45,13 +46,14 @@ void slice_deinit(intSlice **s);
  *         eather the length of the slice being greater than
  *         the length of the src
  */
-int slice_init(intSlice *s, int *src, size_t srclen, size_t start, size_t end);
+int slice_init(intSlice *const s, int *src, const size_t srclen,
+               const size_t start, const size_t end);
 
 /**
  * @brief Prints the values of a intSlice
  *
  * @param s pointer to intSlice
  */
-void slice_println(intSlice *s);
+void slice_println(const intSlice *s);
 
 #endif
