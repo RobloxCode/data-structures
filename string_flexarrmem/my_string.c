@@ -2,8 +2,10 @@
 
 #include <limits.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 String *string_init(const size_t cap) {
     if (cap == 0) {
@@ -63,17 +65,38 @@ int string_append_char(String **str, const char c) {
 }
 
 int string_append(String **str, const char *cstr) {
+#define MINIMUN_STARTING_CAP 8
     if (!str || !*str || !cstr) {
         return 1;
     }
 
-    size_t cstr_len = 0;
-    while (cstr[cstr_len]) {
-        cstr_len++;
+    size_t cstr_len = strlen(cstr);
+
+    if (cstr_len > SIZE_MAX - (*str)->len) {
+        return 1;
     }
 
-    if ((*str)->cap < ((*str)->len + cstr_len + 1)) {
-        size_t new_cap = ((*str)->len + cstr_len) * 2;
+    size_t new_len = (*str)->len + cstr_len;
+
+    if ((*str)->cap < new_len + 1) {
+        size_t new_cap = (*str)->cap;
+
+        if (new_cap == 0) {
+            new_cap = MINIMUN_STARTING_CAP;
+        }
+
+        while (new_cap < new_len && new_cap <= SIZE_MAX / 2) {
+            new_cap *= 2;
+        }
+
+        if (new_cap < new_len) {
+            new_cap = new_len;
+        }
+
+        if (new_cap > SIZE_MAX - sizeof(String) - 1) {
+            return 1;
+        }
+
         String *tmp = realloc(*str, sizeof *tmp + new_cap + 1);
         if (!tmp) {
             return 1;
@@ -87,7 +110,7 @@ int string_append(String **str, const char *cstr) {
         (*str)->items[i + (*str)->len] = cstr[i];
     }
 
-    (*str)->len += cstr_len;
+    (*str)->len = new_len;
     (*str)->items[(*str)->len] = '\0';
 
     return 0;
