@@ -11,9 +11,13 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    string_append(&s, "this is some text");
-    string_append(&s, "this is some text");
-    string_append(&s, "this is some text");
+    string_append(&s, "appending text");
+    string_append(&s, " appending text again to grow capaci");
+
+    string_println(s);
+
+    string_append_char(&s, 't');
+    string_append_char(&s, 'y');
 
     string_println(s);
 
