@@ -113,6 +113,6 @@ Stack_status stack_clear(Stack *stack);
  *
  * @return Number of elements currently stored.
  */
-size_t stack_len(Stack *stack);
+size_t stack_len(const Stack *stack);
 
 #endif
