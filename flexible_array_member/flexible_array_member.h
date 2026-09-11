@@ -10,7 +10,7 @@ typedef enum {
     FA_ERR_WRONG_PTR, /* A NULL or invalid pointer was passed. */
     FA_ERR_RANGE,     /* Index is greater the length. */
     FA_ERR_REALLOC,   /* Internal reallocation failed. */
-} FA_status;
+} FlexArrStatus;
 
 /**
  * @brief Dynamic array of ints.
@@ -42,7 +42,7 @@ FlexArr *flex_arr_init(const size_t cap);
  * @return FA_OK on success
  *         FA_ERR_WRONG_PTR on NULL pointer
  */
-FA_status flex_arr_deinit(FlexArr **fa);
+FlexArrStatus flex_arr_deinit(FlexArr **fa);
 
 /**
  * @brief Adds an element to the buffer, resizes if needed
@@ -54,7 +54,7 @@ FA_status flex_arr_deinit(FlexArr **fa);
  *         FA_ERR_WRONG_PTR on NULL pointer
  *         FA_ERR_REALLOC on failure while realloc
  */
-FA_status flex_arr_push(FlexArr **fa, int val);
+FlexArrStatus flex_arr_push(FlexArr **fa, int val);
 
 /**
  * @brief Removes the last element
@@ -64,7 +64,7 @@ FA_status flex_arr_push(FlexArr **fa, int val);
  * @return FA_OK on success
  *         FA_ERR_WRONG_PTR on NULL pointer
  */
-FA_status flex_arr_pop(FlexArr *fa);
+FlexArrStatus flex_arr_pop(FlexArr *fa);
 
 /**
  * @brief Retrieves the element at the ith index
@@ -77,7 +77,7 @@ FA_status flex_arr_pop(FlexArr *fa);
  *         FA_ERR_WRONG_PTR on NULL pointer
  *         FA_ERR_RANGE on i out of bounds
  */
-FA_status flex_arr_get(const FlexArr *fa, const size_t i, int *out);
+FlexArrStatus flex_arr_get(const FlexArr *fa, const size_t i, int *out);
 
 /**
  * @brief Prints to stdout the elements of the buffer
@@ -87,7 +87,7 @@ FA_status flex_arr_get(const FlexArr *fa, const size_t i, int *out);
  * @return FA_OK on success
  *         FA_ERR_WRONG_PTR on NULL pointer
  */
-FA_status flex_arr_println(const FlexArr *fa);
+FlexArrStatus flex_arr_println(const FlexArr *fa);
 
 /**
  * @brief Gets the number of elements stored in the buffer
