@@ -40,7 +40,7 @@ int main(void) {
 }
 
 void test_push(FlexArr **fa, int val) {
-    FA_status status = FA_OK;
+    FlexArrStatus status = FA_OK;
     if ((status = flex_arr_push(fa, val)) != FA_OK) {
         fprintf(stderr, "ERROR status: %d\n", status);
         fail = 1;
@@ -49,7 +49,7 @@ void test_push(FlexArr **fa, int val) {
 }
 
 void test_pop(FlexArr *fa) {
-    FA_status status = FA_OK;
+    FlexArrStatus status = FA_OK;
     if ((status = flex_arr_pop(fa)) != FA_OK) {
         fprintf(stderr, "ERROR status: %d\n", status);
         fail = 1;
@@ -58,7 +58,7 @@ void test_pop(FlexArr *fa) {
 }
 
 void test_get(FlexArr *fa, size_t i) {
-    FA_status status = FA_OK;
+    FlexArrStatus status = FA_OK;
     int out = 0;
 
     if ((status = flex_arr_get(fa, i, &out)) != FA_OK) {
