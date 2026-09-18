@@ -20,15 +20,19 @@ int main(void) {
 
     ASSERT_MSG(str != NULL, "error creating String");
 
-    string_println(str);
-    string_append_cstr(str, "hello");
-    string_println(str);
-    string_append_cstr(str, " how are you");
+    ASSERT_MSG(string_println(str) != STRING_OK, "error when printing");
 
-    string_append_char(str, 'e');
-    string_println(str);
+    ASSERT_MSG(string_append_cstr(str, "hello") != STRING_OK,
+               "error when appending");
+    ASSERT_MSG(string_println(str) != STRING_OK, "error when printing");
+    ASSERT_MSG(string_append_cstr(str, " how are you") != STRING_OK,
+               "error when appending");
+
+    ASSERT_MSG(string_append_char(str, 'e') != STRING_OK,
+               "error when appending character");
+    ASSERT_MSG(string_println(str) != STRING_OK, "error when printing");
 
     printf("len: %zu\n", string_len(str));
 
-    string_free(&str);
+    ASSERT_MSG(string_free(&str) != STRING_OK, "error when freeing");
 }
