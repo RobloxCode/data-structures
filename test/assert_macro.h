@@ -1,7 +1,3 @@
-#include "../../string/my_string.h"
-
-#include <stdio.h>
-
 #define ASSERT_MSG(cond, fmt, ...)                                             \
     do {                                                                       \
         if (!(cond)) {                                                         \
@@ -11,9 +7,3 @@
             abort();                                                           \
         }                                                                      \
     } while (0)
-
-int main(void) {
-    String *str = string_create(10);
-
-    ASSERT_MSG(str != NULL, "error creating String");
-}
