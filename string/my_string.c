@@ -28,7 +28,7 @@ String *string_create(const size_t init_len) {
     return str;
 }
 
-Str_status string_append_char(String *dst, const char src) {
+StrStatus string_append_char(String *dst, const char src) {
     if (!dst) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -60,7 +60,7 @@ Str_status string_append_char(String *dst, const char src) {
     return STRING_OK;
 }
 
-Str_status string_free(String **str) {
+StrStatus string_free(String **str) {
     if (!str || !*str) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -71,7 +71,7 @@ Str_status string_free(String **str) {
     return STRING_OK;
 }
 
-Str_status string_println(const String *str) {
+StrStatus string_println(const String *str) {
     if (!str) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -79,7 +79,7 @@ Str_status string_println(const String *str) {
     return STRING_OK;
 }
 
-Str_status string_append_cstr(String *dst, const char *src) {
+StrStatus string_append_cstr(String *dst, const char *src) {
     if (!dst || !src) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -119,7 +119,7 @@ Str_status string_append_cstr(String *dst, const char *src) {
     return STRING_OK;
 }
 
-Str_status string_compare(const String *str1, const String *str2, int *result) {
+StrStatus string_compare(const String *str1, const String *str2, int *result) {
     if (!str1 || !str2 || !result) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -148,7 +148,7 @@ size_t string_len(const String *str) {
     return str->length;
 }
 
-Str_status string_clear(String *str) {
+StrStatus string_clear(String *str) {
     if (!str) {
         return STRING_ERR_WRONG_PTR;
     }
@@ -166,6 +166,6 @@ const char *string_cstr(const String *str) {
     return str->items;
 }
 
-Str_status string_concat(String *dst, const String *str1, const String *str2);
-Str_status string_copy(String *dst, const String *src);
-Str_status string_substring(String *str);
+StrStatus string_concat(String *dst, const String *str1, const String *str2);
+StrStatus string_copy(String *dst, const String *src);
+StrStatus string_substring(String *str);

@@ -10,7 +10,7 @@ typedef enum {
     STRING_ERR_WRONG_PTR, /*< A NULL or invalid pointer was passed */
     STRING_ERR_REALLOC,   /*< Internall reallocation failed */
     STRING_ERR_OVERFLOW,  /*< Requested capacity/size would overflow */
-} Str_status;
+} StrStatus;
 
 typedef struct {
     // starting point of the array
@@ -43,7 +43,7 @@ String *string_create(const size_t init_len);
  * @return STRING_ERR_OVERFLOW, on capacity being bigger than SIZE_MAX
  * @return STRING_ERR_REALLOC, on internall fail realloc
  */
-Str_status string_append_char(String *dst, const char src);
+StrStatus string_append_char(String *dst, const char src);
 
 /**
  * @brief Frees the memory of a String
@@ -53,7 +53,7 @@ Str_status string_append_char(String *dst, const char src);
  * @return STRING_OK, on success
  * @return STRING_ERR_WRONG_PTR, on NULL pointer
  */
-Str_status string_free(String **str);
+StrStatus string_free(String **str);
 
 /**
  * @brief Prints to stdout the characters that make up the str
@@ -63,7 +63,7 @@ Str_status string_free(String **str);
  * @return STRING_OK, on success
  * @return STRING_ERR_WRONG_PTR, on NULL pointer
  */
-Str_status string_println(const String *str);
+StrStatus string_println(const String *str);
 
 /**
  * @brief Appends a char * to a String
@@ -76,7 +76,7 @@ Str_status string_println(const String *str);
  * @return STRING_ERR_OVERFLOW, on capacity being bigger than SIZE_MAX
  * @return STRING_ERR_REALLOC, on internall fail realloc
  */
-Str_status string_append_cstr(String *dst, const char *src);
+StrStatus string_append_cstr(String *dst, const char *src);
 
 /**
  * @brief Compares the characters of both str1 and str2 one by one
@@ -89,7 +89,7 @@ Str_status string_append_cstr(String *dst, const char *src);
  * @return STRING_OK, on success
  * @return STRING_ERR_WRONG_PTR, on NULL pointer
  */
-Str_status string_compare(const String *str1, const String *str2, int *result);
+StrStatus string_compare(const String *str1, const String *str2, int *result);
 
 /**
  * @brief Returns the length of che characters in a given String
@@ -108,7 +108,7 @@ size_t string_len(const String *str);
  * @return STRING_OK, on success
  * @return STRING_ERR_WRONG_PTR, on NULL pointer
  */
-Str_status tring_clear(String *str);
+StrStatus tring_clear(String *str);
 
 /**
  * @brief Turns a String into a c string, it is null terminated
